@@ -1,5 +1,8 @@
 const mssql = require('mssql');
-const config = require('../config/config')
+const config = require('../config/config');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt')
+
 
 // Function To List All Available books
 
