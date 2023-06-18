@@ -3,6 +3,7 @@ const config = require('../config/config')
 
 // Function To List All Available books
 
+
 async function getAllBooks(req, res) {
     let sql = await mssql.connect(config);
     if (sql.connected) {
@@ -64,3 +65,4 @@ async function makeBook(req, res) {
 
 
 module.exports = { getAllBooks, getBooksByID, makeBook }
+

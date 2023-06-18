@@ -1,8 +1,10 @@
 const express = require('express');
 
 const bookrouter = express.Router();
+const{borrowBook}=require('../controllers/bookControllers')
 
-// add your codes here:
+// enpoint to borrow a book
+bookrouter.get('/borrow',borrowBook)
 
 const { getAllBooks, getBooksByID, makeBook } = require('../controllers/bookControllers')
 bookrouter.get("/books", getAllBooks);
