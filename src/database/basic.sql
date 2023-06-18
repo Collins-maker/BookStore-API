@@ -24,16 +24,16 @@ ReturnDate DATE
 
 <---inserting data now---->
 INSERT INTO library.Members (MemberID, Name, Address, ContactNumber) VALUES
-(1, 'John Smith', '123 Main St, Cityville', '555-1234'),
-(2, 'Emily Johnson', '456 Elm St, Townville', '555-5678'),
-(3, 'Michael Williams', '789 Oak St, Villagetown', '555-9012'),
-(4, 'Sophia Brown', '321 Pine St, Hamletville', '555-3456'),
-(5, 'Daniel Taylor', '654 Maple St, Countryside', '555-7890'),
-(6, 'Olivia Martinez', '987 Cedar St, Hillside', '555-1234'),
-(7, 'James Davis', '741 Birch St, Riverside', '555-5678'),
-(8, 'Emma Garcia', '852 Walnut St, Lakeside', '555-9012'),
-(9, 'Benjamin Rodriguez', '369 Willow St, Mountainview', '555-3456'),
-(10, 'Ava Wilson', '951 Cherry St, Beachside', '555-7890');
+('John Smith', '123 Main St, Cityville', '555-1234'),
+('Emily Johnson', '456 Elm St, Townville', '555-5678'),
+('Michael Williams', '789 Oak St, Villagetown', '555-9012'),
+('Sophia Brown', '321 Pine St, Hamletville', '555-3456'),
+('Daniel Taylor', '654 Maple St, Countryside', '555-7890'),
+('Olivia Martinez', '987 Cedar St, Hillside', '555-1234'),
+('James Davis', '741 Birch St, Riverside', '555-5678'),
+('Emma Garcia', '852 Walnut St, Lakeside', '555-9012'),
+('Benjamin Rodriguez', '369 Willow St, Mountainview', '555-3456'),
+( 'Ava Wilson', '951 Cherry St, Beachside', '555-7890');
 
 
 
