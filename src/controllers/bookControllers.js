@@ -53,7 +53,7 @@ async function makeBook(req, res) {
             .input("Author", Author)
             .input("PublicationYear", PublicationYear)
             .input("Status", Status);
-        let result = await request.execute("InsertBook");
+        let result = await request.execute('InsertBook');
         res.json({
             success: true,
             message: "Book made successfully",
