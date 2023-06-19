@@ -1,8 +1,8 @@
 const Joi = require('joi');
 
-const validateMemberID = (req, res, next) => {
+const validateBookID = (req, res, next) => {
     const schema = Joi.object({
-        MemberID: Joi.number().integer().positive().required(),
+        BookID: Joi.number().integer().positive().required(),
     });
 
     const { error } = schema.validate(req.params);
@@ -13,4 +13,4 @@ const validateMemberID = (req, res, next) => {
     next();
 };
 
-module.exports = validateMemberID;
+module.exports = validateBookID;
