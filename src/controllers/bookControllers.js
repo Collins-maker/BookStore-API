@@ -5,6 +5,7 @@ const { tokenVerifier } = require('../utils/token')
 
 // Function To List All Available books,getbooks
 
+
 async function getAllBooks(req, res) {
 
     let token = req.headers['authorization'].split(' ')[1];
@@ -156,6 +157,7 @@ async function makeBook(req, res) {
                     message: "Book created successfully",
                     data: result.recordset,
 
+<<<<<<< HEAD
                 });
 
             }
@@ -189,3 +191,7 @@ async function makeBook(req, res) {
 }
 
 module.exports = { getAllBooks, getBooksByID, makeBook, }
+=======
+module.exports = { getAllBooks, getBooksByID, makeBook }
+
+>>>>>>> 0cae998a73107efbf0e1f8f528075e5bf87e994f
