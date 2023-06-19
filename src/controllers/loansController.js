@@ -1,7 +1,7 @@
 const mssql = require('mssql');
 const config = require('../config/config')
-const uuid=require('uuid');
-const crypto=require('crypto')
+
+
 
 const { request } = require('express');
 
@@ -17,7 +17,7 @@ async function borrowBook(req,res){
         const loanDate=new Date()
         const returnDate= new Date(loanDate.getTime())
         returnDate.setDate(loanDate.getDate()+7)
-        console.log(returnDate);
+        // console.log(returnDate);
 
         const request=sql.request()
         
@@ -52,7 +52,8 @@ async function returnBook(req,res){
         const request=sql.request()
         request.input('book_id',mssql.Int,book_id)
         
-        const result=await request.query("UPDATE library.Books SET Status = 'Available' WHERE BookID=@book_id")
+        // const result=await request.query("UPDATE library.Books SET Status = 'Available' WHERE BookID=@book_id")
+        const result=await request.query("DELETE FROM library.Loans WHERE BookID=@book_id")
 
         if(result.rowsAffected[0]>0){
             res.status(200).json({message:'Book returned succesfully'})

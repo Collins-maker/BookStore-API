@@ -61,11 +61,15 @@ BEGIN
     WHERE BookID IN (SELECT BookID FROM inserted);
 END;
 
-CREATE TRIGGER DeleteLoaned
+
+
+SELECT * FROM library.Books
+SELECT * FROM library.Loans
+
+CREATE TRIGGER UpdateStatus
 ON library.Books
-AFTER UPDATE
+AFTER DELETE
 AS
 BEGIN
-    DELETE FROM library.Loans WHERE BookID IN (SELECT BookID FROM deleted) 
+	UPDATE library.Books SET Status = 'Available' WHERE BookID IN (SELECT BookID FROM deleted)
 END;
-
