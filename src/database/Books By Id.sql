@@ -1,4 +1,4 @@
-CREATE PROCEDURE getBookByID 
+CREATE OR ALTER PROCEDURE getBookByID 
 @BookID INT 
 AS
 BEGIN
@@ -6,4 +6,3 @@ BEGIN
 	FROM Library.Books
 	WHERE BookID=@BookID
 END;
-SELECT * FROM getBookByID

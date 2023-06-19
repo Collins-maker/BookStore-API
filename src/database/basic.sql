@@ -1,5 +1,3 @@
--- new
-
 CREATE SCHEMA library;
 GO 
 CREATE TABLE library.Books (
@@ -51,3 +49,4 @@ INSERT INTO library.Books (Title, Author, PublicationYear, Status) VALUES
 ('Brave New World', 'Aldous Huxley', '1932', 'Available'),
 ('Moby-Dick', 'Herman Melville', '1851', 'Available'),
 ('The Lord of the Rings', 'J.R.R. Tolkien', '1954', 'Available');
+
