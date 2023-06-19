@@ -1,5 +1,3 @@
--- new
-
 CREATE SCHEMA library;
 GO 
 CREATE TABLE library.Books (
@@ -15,7 +13,7 @@ Name VARCHAR(255) NOT NULL,
 Address VARCHAR (255) NOT NULL,
 ContactNumber VARCHAR (20) NOT NULL
 );
- 
+
 CREATE TABLE library.Loans(
 LoanID INT IDENTITY(1,1) PRIMARY KEY,
 BookID INT FOREIGN KEY REFERENCES library.Books (BookID),
@@ -37,9 +35,6 @@ INSERT INTO library.Members (Name, Address, ContactNumber) VALUES
 ('Benjamin Rodriguez', '369 Willow St, Mountainview', '555-3456'),
 ( 'Ava Wilson', '951 Cherry St, Beachside', '555-7890');
 
-
-
-
 INSERT INTO library.Books (Title, Author, PublicationYear, Status) VALUES
 ('To Kill a Mockingbird', 'Harper Lee', '1960', 'Available'),
 ('1984', 'George Orwell', '1949', 'Available'),
@@ -51,3 +46,26 @@ INSERT INTO library.Books (Title, Author, PublicationYear, Status) VALUES
 ('Brave New World', 'Aldous Huxley', '1932', 'Available'),
 ('Moby-Dick', 'Herman Melville', '1851', 'Available'),
 ('The Lord of the Rings', 'J.R.R. Tolkien', '1954', 'Available');
+
+SELECT * FROM library.Loans
+SELECT * FROM library.Books
+
+
+CREATE TRIGGER UpdateBookStatus
+ON library.Loans
+AFTER INSERT
+AS
+BEGIN
+    UPDATE library.Books
+    SET Status = 'Borrowed'
+    WHERE BookID IN (SELECT BookID FROM inserted);
+END;
+
+CREATE TRIGGER DeleteLoaned
+ON library.Books
+AFTER UPDATE
+AS
+BEGIN
+    DELETE FROM library.Loans WHERE BookID IN (SELECT BookID FROM deleted) 
+END;
+
