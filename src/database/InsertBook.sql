@@ -1,3 +1,4 @@
+
 CREATE PROCEDURE InsertBook
 @Title varchar(255),
 @Author varchar(255),

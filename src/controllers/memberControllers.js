@@ -19,10 +19,9 @@ async function getAllMembers(req, res){
 
 }
 
+//function to get member by thier IDs
 async function getMemberById(req, res) {
     let { MemberID } = req.params;
-
-    // console.log("Here is the Member");
   
     try {
       let sql = await mssql.connect(config);
