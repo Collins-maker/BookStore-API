@@ -68,6 +68,7 @@ async function getAllBooks(req, res) {
 
 }
 
+<<<<<<< HEAD
 
 //Function To Get Books By ID,getBooksByID,getBookById
 async function getBooksByID(req, res) {
@@ -131,6 +132,25 @@ async function getBooksByID(req, res) {
             })
         }
 
+=======
+//Function to create a new book
+async function makeBook(req, res) {
+    let sql = await mssql.connect(config);
+    if (sql.connected) {
+        const { Title, Author, PublicationYear, Status } = req.body;
+        let request = sql
+            .request()
+            .input("Title", Title)
+            .input("Author", Author)
+            .input("PublicationYear", PublicationYear)
+            .input("Status", Status);
+        let result = await request.execute('InsertBook');
+        res.json({
+            success: true,
+            message: "Book made successfully",
+            data: result.recordset,
+        });
+>>>>>>> 6078b06beab3047918b67ce3261c800e27fdf16b
     }
 
 }

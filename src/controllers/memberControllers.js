@@ -6,6 +6,25 @@ const config = require('../config/config');
 const config = require('../config/config')
 >>>>>>> 0cae998a73107efbf0e1f8f528075e5bf87e994f
 
+//Function to create a new member
+async function createMember(req, res) {
+  let sql = await mssql.connect(config);
+  if (sql.connected) {
+      const { Name,Address,ContactNumber } = req.body;
+      let request = sql
+          .request()
+          .input("Name", Name)
+          .input("Address", Address)
+          .input("ContactNumber", ContactNumber);
+      let result = await request.execute('InsertMember');
+      res.json({
+          success: true,
+          message: "Member added successfully",
+          data: result.recordset,
+      });
+  }
+}
+
 
 
 
@@ -33,6 +52,7 @@ async function getAllMembers(req, res) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //Get Member By ID
 
 async function getMemberById(req, res) {
@@ -50,6 +70,11 @@ async function getMemberById(req, res) {
 >>>>>>> 0cae998a73107efbf0e1f8f528075e5bf87e994f
 
     // console.log("Here is the Member");
+=======
+//function to get member by thier IDs
+async function getMemberById(req, res) {
+    let { MemberID } = req.params;
+>>>>>>> 6078b06beab3047918b67ce3261c800e27fdf16b
   
     try {
       let sql = await mssql.connect(config);
@@ -79,4 +104,8 @@ async function getMemberById(req, res) {
 
 
 
+<<<<<<< HEAD
 module.exports = { getAllMembers, getMemberById, memberlogin }
+=======
+module.exports = {getAllMembers, getMemberById,createMember  }
+>>>>>>> 6078b06beab3047918b67ce3261c800e27fdf16b
