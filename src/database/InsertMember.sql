@@ -1,3 +1,4 @@
+-- sql stored procedure code for inserting new members
 CREATE OR ALTER PROCEDURE InsertMember
 @Name varchar(255),
 @Address varchar(255),
@@ -13,9 +14,9 @@ BEGIN
 	SELECT * FROM library.Members WHERE MemberID = SCOPE_IDENTITY();
 END;
 
-EXEC InsertMember 
-@Name ='Collins',
-@Address='Kimathi',
-@ContactNumber=738121314;
+-- EXEC InsertMember 
+-- @Name ='Collins',
+-- @Address='Kimathi',
+-- @ContactNumber=738121314;
 
-SELECT * FROM library.Members
+-- SELECT * FROM library.Members
