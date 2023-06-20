@@ -66,8 +66,22 @@ async function getMemberById(req, res) {
       });
     }
   }
-  
+
+  async function membersWithBooks(req, res){
+    let sql = await mssql.connect(config);
+    if(sql.connected){
+        let results = await sql.request().execute("membersWithBooks");
+        let Members = results.recordset;
+        res.json({
+            success: true,
+            message: "Members fetched successfully",
+            results: Members
+        })
+    }else{
+        res.status(500).send("Internal server error")
+    }
+  }
 
 
 
-module.exports = {getAllMembers, getMemberById,createMember  }
+module.exports = {getAllMembers, getMemberById,createMember,membersWithBooks }
