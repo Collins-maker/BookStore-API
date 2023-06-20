@@ -4,10 +4,11 @@ const memberrouter = express.Router();
 
 // Add your member routes here:
 
-const { getAllMembers, getMemberById } = require('../controllers/memberControllers');
+const { getAllMembers, getMemberById, createMember } = require('../controllers/memberControllers');
 
 memberrouter.get('/members', getAllMembers);
 memberrouter.get('/members/:MemberID', getMemberById);
+memberrouter.post('/member', createMember);
 
 
 
