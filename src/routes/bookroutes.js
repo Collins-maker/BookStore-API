@@ -2,15 +2,15 @@ const express = require('express');
 const bcrypt=require('bcrypt')
 
 const bookrouter = express.Router();
-<<<<<<< HEAD
-const{borrowBook,returnBook,signUp}=require('../controllers/loansController')
+// <<<<<<< HEAD
+const{borrowBook,returnBook}=require('../controllers/loansController')
+
 const{register, login}=require('../controllers/authenticationController')
 
 
 bookrouter.post('/borrow',borrowBook)
 bookrouter.put('/return',returnBook)
-=======
-const { borrowBook, returnBook, signUp } = require('../controllers/loansController')
+
 
 
 // add your codes here:
@@ -22,12 +22,10 @@ const { getAllBooks, getBooksByID, makeBook, } = require('../controllers/bookCon
 // endpoint to borrow a book
 bookrouter.get('/borrow', borrowBook)
 
-// // endpoint to borrow a book
-// // bookrouter.get('/borrow',borrowBook)
+
 bookrouter.post('/borrow', borrowBook)
 bookrouter.put('/return', returnBook)
-    // bookrouter.post('/signup',signUp)
->>>>>>> 2c739981c6255a2b1b0cdb4551587b73d3040fd3
+
 
 
 bookrouter.get("/books", getAllBooks);

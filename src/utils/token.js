@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-const jwt=require('jsonwebtoken')
-require('dotenv').config()
-
-const tokenGenerator=async(data)=>{
-    return jwt.sign(data,process.env.SECRET,{expiresIn:'1h'})
-}
-function tokenVerifier(token){
-    return jwt.verify(token,process.env.SECRET)
-}
-
-module.exports={tokenGenerator,tokenVerifier}
-=======
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
@@ -24,4 +11,3 @@ function tokenVerifier(token) {
 }
 
 module.exports = { tokenGenerator, tokenVerifier }
->>>>>>> 2c739981c6255a2b1b0cdb4551587b73d3040fd3
