@@ -92,4 +92,4 @@ async function getMemberById(req, res) {
 
     module.exports = { getAllMembers, getMemberById, memberlogin }
 
-    // module.exports = { getAllMembers, getMemberById, createMember }
+    module.exports = { getAllMembers, getMemberById, createMember, membersWithBooks }
