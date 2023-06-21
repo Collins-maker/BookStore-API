@@ -1,6 +1,25 @@
 const mssql = require('mssql');
 const config = require('../config/config')
 
+//Function to create a new member
+async function createMember(req, res) {
+  let sql = await mssql.connect(config);
+  if (sql.connected) {
+      const { Name,Address,ContactNumber } = req.body;
+      let request = sql
+          .request()
+          .input("Name", Name)
+          .input("Address", Address)
+          .input("ContactNumber", ContactNumber);
+      let result = await request.execute('InsertMember');
+      res.json({
+          success: true,
+          message: "Member added successfully",
+          data: result.recordset,
+      });
+  }
+}
+
 
 async function getAllMembers(req, res){
     let sql = await mssql.connect(config);
@@ -47,8 +66,22 @@ async function getMemberById(req, res) {
       });
     }
   }
-  
+
+  async function membersWithBooks(req, res){
+    let sql = await mssql.connect(config);
+    if(sql.connected){
+        let results = await sql.request().execute("membersWithBooks");
+        let Members = results.recordset;
+        res.json({
+            success: true,
+            message: "Members fetched successfully",
+            results: Members
+        })
+    }else{
+        res.status(500).send("Internal server error")
+    }
+  }
 
 
 
-module.exports = {getAllMembers, getMemberById  }
+module.exports = {getAllMembers, getMemberById,createMember,membersWithBooks }
