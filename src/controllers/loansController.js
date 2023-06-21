@@ -9,7 +9,7 @@ const { tokenVerifier } = require("../utils/token");
 
 async function borrowBook(req, res) {
   let token = req.headers["authorization"].split(" ")[1];
-  console.log(token);
+  // console.log(token);
   try {
     let user = await tokenVerifier(token);
     // console.log(user);
@@ -24,6 +24,7 @@ async function borrowBook(req, res) {
       const returnDate = new Date(loanDate.getTime());
       returnDate.setDate(loanDate.getDate() + 7);
       // console.log(returnDate);
+      const request = sql.request();
 
         request.input('book_id', mssql.Int, book_id);
         request.input('member_id', mssql.Int, member_id);
@@ -31,16 +32,9 @@ async function borrowBook(req, res) {
         request.input('return_date', mssql.Date, returnDate);
 
         const result = await request.query('INSERT INTO library.Loans(BookID,MemberID,LoanDate,ReturnDate) VALUES (@book_id,@member_id,@loan_date,@return_date)');
-      const request = sql.request();
+      
 
-      request.input("book_id", mssql.Int, book_id);
-      request.input("member_id", mssql.Int, member_id);
-      request.input("loan_date", mssql.Date, loanDate);
-      request.input("return_date", mssql.Date, returnDate);
-
-      // const result = await request.query(
-      //   "INSERT INTO library.Loans(BookID,MemberID,LoanDate,ReturnDate) VALUES (@book_id,@member_id,@loan_date,@return_date)"
-      // );
+      
         if (result.rowsAffected[0] > 0) {
             const mailOptions = {
                 from: process.env.EMAIL_USER,
@@ -62,12 +56,10 @@ async function borrowBook(req, res) {
                 }
             });
 
-            res.status(200).json({ message: 'Book borrowed successfully' });
-        } else {
-            res.status(400).json({ message: 'Failed to borrow the book' });
-        }
+         
       }
-    } catch (error) {
+    } 
+  }catch (error) {
         console.log('Error borrowing book:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
@@ -83,7 +75,6 @@ async function returnBook(req,res){
         const request=sql.request()
         request.input('book_id',mssql.Int,book_id)
         
-        // const result=await request.query("UPDATE library.Books SET Status = 'Available' WHERE BookID=@book_id")
         const result=await request.query("DELETE FROM library.Loans WHERE BookID=@book_id")
 
       if (result.rowsAffected[0] > 0) {
