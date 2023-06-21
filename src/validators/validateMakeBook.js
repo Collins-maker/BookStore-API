@@ -20,3 +20,4 @@ const validateMakeBook = (req, res, next) => {
     // If validation passes, call the next middleware or route handler
     next();
 };
+module.exports = validateMakeBook;
