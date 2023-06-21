@@ -67,7 +67,7 @@ async function returnBook(req, res) {
         const result = await request.query("DELETE FROM library.Loans WHERE BookID=@book_id")
 
         if (result.rowsAffected[0] > 0) {
-            res.status(200).json({ message: 'Book returned succesfully' })
+            res.status(200).json({ message: 'Book returned successfully' })
         } else {
             res.status(400).json({ message: 'Failed to return the book' })
         }
