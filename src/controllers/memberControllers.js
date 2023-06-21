@@ -89,7 +89,6 @@ async function getMemberById(req, res) {
 
 
     }
-<<<<<<< HEAD
   }
 
   async function membersWithBooks(req, res){
@@ -106,9 +105,5 @@ async function getMemberById(req, res) {
         res.status(500).send("Internal server error")
     }
   }
-=======
->>>>>>> 2c739981c6255a2b1b0cdb4551587b73d3040fd3
-
-    module.exports = { getAllMembers, getMemberById, memberlogin }
 
     module.exports = { getAllMembers, getMemberById, createMember, membersWithBooks }
