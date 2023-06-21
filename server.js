@@ -8,7 +8,7 @@ app.use(express.json())
 
 const bookrouter = require('./src/routes/bookroutes');
 
-//const memberrouter = require('./src/routes/memberroutes');
+const memberrouter = require('./src/routes/memberroutes');
 
 app.use(express.json());
 
@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 
 
-//app.use(memberrouter);
+app.use(memberrouter);
 
 app.use(bookrouter);
 

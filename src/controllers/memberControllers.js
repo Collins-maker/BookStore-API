@@ -111,9 +111,4 @@ async function getMemberById(req, res) {
 
     module.exports = { getAllMembers, getMemberById, memberlogin }
 
-<<<<<<< HEAD
-
-module.exports = {getAllMembers, getMemberById,createMember,membersWithBooks }
-=======
-    // module.exports = { getAllMembers, getMemberById, createMember }
->>>>>>> 2c739981c6255a2b1b0cdb4551587b73d3040fd3
+    module.exports = { getAllMembers, getMemberById, createMember, membersWithBooks }
