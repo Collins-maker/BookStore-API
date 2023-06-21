@@ -42,20 +42,6 @@ async function getAllMembers(req, res) {
 }
 
 
-//Get Member By ID
-
-async function getMemberById(req, res) {
-
-    let { MemberID } = req.params;
-
-    let sql = await mssql.connect(config);
-    if (sql.connected) {
-        let results = await sql.query(`SELECT * from library.Members WHERE MemberID=${Number(MemberID)}`)
-
-        let Member = results.recordset[0]
-
-        // console.log("Here is the Member");
-
         //function to get member by their IDs
         async function getMemberById(req, res) {
             let { MemberID } = req.params;
@@ -88,8 +74,8 @@ async function getMemberById(req, res) {
 
 
 
-    }
-  }
+    
+  
 
   async function membersWithBooks(req, res){
     let sql = await mssql.connect(config);

@@ -38,9 +38,9 @@ async function borrowBook(req, res) {
       request.input("loan_date", mssql.Date, loanDate);
       request.input("return_date", mssql.Date, returnDate);
 
-      const result = await request.query(
-        "INSERT INTO library.Loans(BookID,MemberID,LoanDate,ReturnDate) VALUES (@book_id,@member_id,@loan_date,@return_date)"
-      );
+      // const result = await request.query(
+      //   "INSERT INTO library.Loans(BookID,MemberID,LoanDate,ReturnDate) VALUES (@book_id,@member_id,@loan_date,@return_date)"
+      // );
         if (result.rowsAffected[0] > 0) {
             const mailOptions = {
                 from: process.env.EMAIL_USER,
@@ -66,14 +66,13 @@ async function borrowBook(req, res) {
         } else {
             res.status(400).json({ message: 'Failed to borrow the book' });
         }
+      }
     } catch (error) {
         console.log('Error borrowing book:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
     
-    
-    
-}
+  }
 
 async function returnBook(req,res){
     try {
@@ -93,12 +92,12 @@ async function returnBook(req,res){
         res.status(400).json({ message: "Failed to return the book" });
       }
     }
-  } catch (error) {
+  catch (error) {
     console.log("Error in returning a book:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
+  
 // signup
 
 module.exports = { borrowBook, returnBook };
-
