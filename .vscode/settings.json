@@ -4,6 +4,7 @@
         "bookroutes",
         "booksore",
         "committs",
+        "geta",
         "getbooks",
         "Haron",
         "memberlogin",
@@ -11,6 +12,7 @@
         "memberroutes",
         "Millis",
         "recordset",
-        "Retreived"
+        "Retreived",
+        "succesfully"
     ]
 }

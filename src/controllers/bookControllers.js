@@ -8,176 +8,154 @@ const { tokenVerifier } = require('../utils/token')
 
 async function getAllBooks(req, res) {
 
-    let token = req.headers['authorization'].split(' ')[1];
-
     try {
+        let user = req.user;
+        console.log(user);
 
-        let user = await tokenVerifier(token);
+        let sql = await mssql.connect(config);
 
-        if (user) {
+        if (sql.connected) {
+            let request = sql.request();
 
-            let sql = await mssql.connect(config);
+            let result = await request.execute("getBooks");
 
-            if (sql.connected) {
+            res.json({
+                success: true,
 
-                let request = sql.request();
+                message: "Books have been received",
 
-                let result = await request.execute("getbooks");
-
-                console.log(result);
-
-                res.json({
-
-                    success: true,
-
-                    message: "Books Have Been Retreived",
-
-                    data: result.recordset,
-
-                });
-
-            }
+                data: result.recordset,
+            });
         }
-
     } catch (error) {
-
-        if (error.message.includes('token') || error.message.includes('invalid')) {
-
-            res.status(403).json(
-
-                {
-
-                    success: false,
-
-                    message: 'Login again'
-
-                }
-
-            )
-
-        } else if (error.message.includes('expired')) {
-
+        if (error.message.includes("token") || error.message.includes("invalid")) {
             res.status(403).json({
-
                 success: false,
 
-                message: 'Token expired login again'
-            })
+                message: "Login again",
+            });
+        } else if (error.message.includes("expired")) {
+            res.status(403).json({
+                success: false,
+
+                message: "Token has expired",
+            });
         }
     }
-
 }
 
 
 //Function To Get Books By ID,getBooksByID,getBookById
 async function getBooksByID(req, res) {
 
-    let token = req.headers['authorization'].split(" ")[1]
     try {
 
-        let user = await tokenVerifier(token)
+        let user = req.user;
+        console.log(user);
 
         if (user) {
             let sql = await mssql.connect(config);
+
             if (sql.connected) {
                 const { id } = req.params;
+
                 let request = sql.request();
+
                 request.input("BookID", id);
+
                 let result = await request.execute("getBookById");
+
                 console.log(id);
 
                 if (result.recordset.length > 0) {
-
                     res.status(200).json({
-
                         success: true,
 
-                        message: "Retrieved book successfully",
+                        message: "The book has been retreived",
 
                         data: result.recordset,
-
                     });
-
                 } else {
-
                     res.status(404).json({
-
                         success: false,
 
-                        message: "Book does not exist",
-
+                        message: "The book you are searching for is not present",
                     });
-
                 }
             }
         }
-
     } catch (error) {
-        if (error.message.includes('token') || error.message.includes('invalid')) {
+        if (error.message.includes("token") || error.message.includes("invalid")) {
             res.status(403).json({
                 success: false,
-                message: 'Token is invalid, try logging in again'
 
-            })
-
-        } else if (error.message.includes('expired')) {
-
+                message: "The provided token is wrong",
+            });
+        } else if (error.message.includes("expired")) {
             res.status(403).json({
-
                 success: false,
 
-                message: 'Token expired login again'
-
-            })
+                message: "Your token has expired",
+            });
         }
-
     }
-
 }
+
 
 
 //Function to create a new book,makeBook,InBook
 async function makeBook(req, res) {
 
-    let token = req.headers['authorization'].split(" ")[1]
+
     try {
-        let user = await tokenVerifier(token)
+
+        let { value } = req;
+        console.log(value);
+        let user = req.user;
+
         if (user) {
             let sql = await mssql.connect(config);
+
             if (sql.connected) {
                 const { Title, Author, PublicationYear, Status } = req.body;
-                let request = sql
-                    .request()
-                    .input("Title", Title)
-                    .input("Author", Author)
-                    .input("PublicationYear", PublicationYear)
-                    .input("Status", Status);
-                let result = await request.execute("InBook");
-                res.json({
 
+                let request = sql
+
+                    .request()
+
+                .input("Title", Title)
+
+                .input("Author", Author)
+
+                .input("PublicationYear", PublicationYear)
+
+                .input("Status", Status);
+
+                let result = await request.execute("InBook");
+
+                res.json({
                     success: true,
+
                     message: "Book created successfully",
+
                     data: result.recordset,
                 });
             }
         }
-
     } catch (error) {
-
-        if (error.message.includes('token') || error.message.includes('invalid')) {
-
-            res.status(403).json(
-
-                {
-                    success: false,
-                    message: 'Login again'
-                }
-            )
-        } else if (error.message.includes('expired')) {
+        console.log(error);
+        if (error.message.includes("token") || error.message.includes("invalid")) {
             res.status(403).json({
                 success: false,
-                message: 'Token expired login again'
-            })
+
+                message: "Login again",
+            });
+        } else if (error.message.includes("expired")) {
+            res.status(403).json({
+                success: false,
+
+                message: "Token expired login again",
+            });
         }
     }
 }

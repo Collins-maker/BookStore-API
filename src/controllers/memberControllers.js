@@ -89,25 +89,6 @@ async function getMemberById(req, res) {
 
 
     }
-<<<<<<< HEAD
-  }
-
-  async function membersWithBooks(req, res){
-    let sql = await mssql.connect(config);
-    if(sql.connected){
-        let results = await sql.request().execute("membersWithBooks");
-        let Members = results.recordset;
-        res.json({
-            success: true,
-            message: "Members fetched successfully",
-            results: Members
-        })
-    }else{
-        res.status(500).send("Internal server error")
-    }
-  }
-=======
->>>>>>> 2c739981c6255a2b1b0cdb4551587b73d3040fd3
 
     module.exports = { getAllMembers, getMemberById, memberlogin }
 
