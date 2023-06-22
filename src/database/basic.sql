@@ -29,13 +29,13 @@ Name VARCHAR(255) NOT NULL,
 Address VARCHAR (255) NOT NULL,
 ContactNumber VARCHAR (20) NOT NULL,
 email VARCHAR(30) NOT NULL, 
-password VARCHAR(15) NOT NULL
+password VARCHAR(100) NOT NULL
 );
  
 CREATE TABLE library.Loans(
 LoanID INT IDENTITY(1,1) PRIMARY KEY,
-BookID INT FOREIGN KEY REFERENCES library.Books (BookID),
-MemberID INT FOREIGN KEY REFERENCES library.members(MemberID),
+BookID INT FOREIGN KEY REFERENCES library.Books (BookID) NOT NULL,
+MemberID INT FOREIGN KEY REFERENCES library.members(MemberID) NOT NULL,
 LoanDate DATE,
 ReturnDate DATE 
 );

@@ -6,7 +6,7 @@ async function getaUser(email){
     const sql=await mssql.connect(config)
         const request=sql.request()
         request.input('email',mssql.VarChar,email)
-        const query='SELECT * FROM library.users WHERE email=@email'
+        const query='SELECT * FROM library.Members WHERE email=@email'
         const result=await request.query(query)
 
         if(result.recordset.length===0){
