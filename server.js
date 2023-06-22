@@ -10,6 +10,10 @@ const bookrouter = require('./src/routes/bookroutes');
 
 const memberrouter = require('./src/routes/memberroutes');
 
+const loansRouter =require('./src/routes/loansRoutes');
+
+const authenticationRouter = require('./src/routes/authenticationRoutes');
+
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -21,6 +25,10 @@ app.get('/', (req, res) => {
 app.use(memberrouter);
 
 app.use(bookrouter);
+
+app.use(loansRouter);
+
+app.use(authenticationRouter);
 
 
 
