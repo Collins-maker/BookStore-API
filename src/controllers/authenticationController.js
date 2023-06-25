@@ -8,40 +8,8 @@ require('dotenv').config()
 const getaUser = require('../utils/getUser')
 const { tokenGenerator } = require('../utils/token')
 
-// register // signup
 
-// async function register(req,res){
-//     try{
-//         const{email,password}=req.body
-//         if(!email){
-//             return res.status(400).json({message:'Email is required'})
-//         }
-//         if(!password){
-//             return res.status(400).json({message:'Password required'})
-//         }
-
-
-//         const hashedPassword=await bcrypt.hash(password,8)
-//         const pool=await mssql.connect(config)
-
-//         const query=`INSERT INTO library.Members(email,password) VALUES (@email, @password)`
-//         const request=pool.request()
-
-//         request.input('email',mssql.VarChar,email);
-//         request.input('password',mssql.VarChar,hashedPassword)
-
-//         await request.query(query)
-//         await pool.close()
-
-//         res.status(200).json({message:'Member registered Succesfully'})
-
-//     }catch(error){
-//         console.error('Error in registering: ',error);
-//         res.status(500).json({message:'Internal server error'})
-//     }
-// }
-
-//Function to create a new member
+//Function to register a new member
 async function register(req, res) {
     let sql = await mssql.connect(config);
     if (sql.connected) {
@@ -55,6 +23,11 @@ async function register(req, res) {
             .input("email", email)
             .input("password", hashedPassword);
         let result = await request.execute('InsertMember');
+        try {
+            await sendMail(email, Name);
+        } catch (error) {
+            console.log(error)
+        }
         res.json({
             success: true,
             message: "Member added successfully",
