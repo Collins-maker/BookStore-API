@@ -34,8 +34,8 @@ async function borrowBook(req, res) {
 
             if (result.rowsAffected[0] > 0) {
                 const mailOptions = {
-                    from: process.env.EMAIL_USER,
-                    to: 'cruzhumphriz@gmail.com',
+                    from: process.env.USER_EMAIL,
+                    to: 'muchuicollins56@gmail.com',
                     subject: 'Book Borrowed',
                     text: 'The book has been borrowed successfully.',
                 };
