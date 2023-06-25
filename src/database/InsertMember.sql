@@ -2,9 +2,9 @@
 CREATE OR ALTER PROCEDURE InsertMember
 @Name varchar(255),
 @Address varchar(255),
-@ContactNumber INT,
-@email varchar(30),
-@password varchar(20)
+@ContactNumber varchar(255),
+@email varchar(50),
+@password varchar(50)
 
 
 AS

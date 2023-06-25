@@ -1,12 +1,12 @@
-const bcrypt=require('bcrypt')
-const mssql=require('mssql')
-const jwt=require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+const mssql = require('mssql')
+const jwt = require('jsonwebtoken')
 const { user } = require('../config/config')
-const config=require('../config/config')
+const config = require('../config/config')
 require('dotenv').config()
 
-const getaUser=require('../utils/getUser')
-const {tokenGenerator}=require('../utils/token')
+const getaUser = require('../utils/getUser')
+const { tokenGenerator } = require('../utils/token')
 
 // register // signup
 
@@ -19,7 +19,7 @@ const {tokenGenerator}=require('../utils/token')
 //         if(!password){
 //             return res.status(400).json({message:'Password required'})
 //         }
-    
+
 
 //         const hashedPassword=await bcrypt.hash(password,8)
 //         const pool=await mssql.connect(config)
@@ -45,8 +45,8 @@ const {tokenGenerator}=require('../utils/token')
 async function register(req, res) {
     let sql = await mssql.connect(config);
     if (sql.connected) {
-        const { Name, Address, ContactNumber,email,password } = req.body;
-        const hashedPassword = await bcrypt.hash(password,8)
+        const { Name, Address, ContactNumber, email, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 8)
         let request = sql
             .request()
             .input("Name", Name)
@@ -64,31 +64,29 @@ async function register(req, res) {
 }
 
 // user login 
-async function login(req,res){
-    const{email,password}=req.body
-    try {   
-        let user=await getaUser(email)
-        const passwordMatch=await bcrypt.compare(password,user.password)
+async function login(req, res) {
+    const { email, password } = req.body;
 
-        if(!passwordMatch){
-            
-            return res.status(401).json({success:false,message:'Invalid credentials'})
+    try {
+        let user = await getaUser(email);
+        const passwordMatch = await bcrypt.compare(password, user.password);
 
-        }else{
-            let token=await tokenGenerator({
-                userId:user.id,
-                email:user.email 
-            })
-            console.log("our token",token);
-            res.json({success:true,message:"logged in succesfully",token})
-
+        if (!passwordMatch) {
+            return res
+                .status(401)
+                .json({ success: false, message: 'Invalid credentials' });
+        } else {
+            let token = await tokenGenerator({
+                userId: user.id,
+                email: user.email
+            });
+            console.log("our token", token);
+            res.json({ success: true, message: "logged in successfully", token });
         }
     } catch (error) {
-        console.error('Error during login :', error)
-        res.status(500).json({message:'Internal server error'})
-        
+        console.error('Error during login:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
-
 }
 
-module.exports={register,login}
+module.exports = { register, login }
