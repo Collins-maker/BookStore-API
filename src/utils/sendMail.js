@@ -1,24 +1,27 @@
-const { createTransport } = require("nodemailer");
-const email_config = require("../config/emailConfig");
-require("dotenv").config()
+const {createTransport}= require("nodemailer");
 
-const message_options = {
-  to: ["haronkiarii@gmail.com", "haronkiari@gmail.com"],
-  from: process.env.MAIL,
-  subject: "Email testing || Send From Nodemailer",
-  text: "Hello big man bazuu",
-  // html: ,
-  // attachments:
-};
-const transporter = createTransport(email_config);
+const {emailConfig} =require('../config/emailConfiguration');
 
-async function sendMail() {
-  try {
-    let results = await transporter.sendMail(message_options);
-    console.log(results);
-  } catch (error) {
-    console.log(error);
-  }
+
+
+
+
+const transporter = createTransport(emailConfig);
+
+async function sendMail(email,name){
+  const message_options ={
+    to:email,
+    from: process.env.USER_EMAIL ,
+    subject: "Email testing || send from Nodemailer",
+    text: `Hi ${name} welcome to Book Store`
 }
-// module.exports = sendMail ;
-module.exports=sendMail
+  
+    try {
+        let results =await transporter.sendMail(message_options);
+        console.log(results);
+    } catch (error) {
+      console.log(error); 
+    }
+}
+
+module.exports = sendMail;

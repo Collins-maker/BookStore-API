@@ -4,7 +4,7 @@ const jwt=require('jsonwebtoken')
 const { user } = require('../config/config')
 const config=require('../config/config')
 require('dotenv').config()
-
+const sendMail = require("../utils/sendMail")
 const getaUser=require('../utils/getUser')
 const {tokenGenerator}=require('../utils/token')
 
@@ -41,7 +41,7 @@ const {tokenGenerator}=require('../utils/token')
 //     }
 // }
 
-//Function to create a new member
+//Function to register a new member
 async function register(req, res) {
     let sql = await mssql.connect(config);
     if (sql.connected) {
@@ -55,6 +55,11 @@ async function register(req, res) {
             .input("email", email)
             .input("password", hashedPassword);
         let result = await request.execute('InsertMember');
+        try {
+            await sendMail(email, Name);
+        } catch (error) {
+            console.log(error)
+        }
         res.json({
             success: true,
             message: "Member added successfully",
