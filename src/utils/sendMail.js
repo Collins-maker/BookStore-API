@@ -12,8 +12,8 @@ async function sendMail(email,name){
   const message_options ={
     to:email,
     from: process.env.USER_EMAIL ,
-    subject: "Email testing || send from Nodemailer",
-    text: `Hi ${name} welcome to Book Store`
+    subject: "Register",
+    text: `Hi ${name}, welcome to Book Store`
 }
   
     try {
