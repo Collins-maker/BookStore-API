@@ -5,7 +5,7 @@ const config = require('../config/config')
 async function createMember(req, res) {
     let sql = await mssql.connect(config);
     if (sql.connected) {
-        const { Name, Address, ContactNumber } = req.body;
+        const { userName, Address, contactNumber, } = req.body;
         let request = sql
             .request()
             .input("Name", Name)
