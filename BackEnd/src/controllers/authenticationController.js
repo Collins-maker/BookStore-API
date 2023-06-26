@@ -18,16 +18,19 @@ async function register(req, res) {
         let sql = await mssql.connect(config);
 
         if (sql.connected) {
-            const { Name, Address, ContactNumber, email, password } = req.body;
-            const hashedPassword = await bcrypt.hash(password, 8);
+            const { userName, Address, contactNumber, Email, Password, confirmPassword } = req.body;
+            const hashedPassword = await bcrypt.hash(Password, 8);
+            const hashedPassword2 = await bcrypt.hash(confirmPassword, 8);
+
 
             let request = sql
                 .request()
-                .input("Name", mssql.VarChar, Name)
+                .input("userName", mssql.VarChar, userName)
                 .input("Address", mssql.VarChar, Address)
-                .input("ContactNumber", mssql.VarChar, ContactNumber)
-                .input("email", mssql.VarChar, email)
-                .input("password", mssql.VarChar, hashedPassword);
+                .input("contactNumber", mssql.VarChar, contactNumber)
+                .input("Email", mssql.VarChar, Email)
+                .input("Password", mssql.VarChar, hashedPassword)
+                .input("confirmPassword", mssql.VarChar, hashedPassword2);
 
             let result = await request.execute("InsertMember");
 
