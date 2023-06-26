@@ -1,0 +1,16 @@
+.hero-main{
+    background-image: url("./images/library.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 70vh;
+   margin: 1em 0;
+
+    padding-top: 0;
+}
+.details{
+     width: 100%;
+     text-align: center;
+     padding-top: 10em;
+     color: white;
+}
