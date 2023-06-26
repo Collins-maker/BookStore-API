@@ -1,8 +1,6 @@
 CREATE PROCEDURE getBooks
 AS
 BEGIN
-	SELECT * 
-	FROM Library.Books
-	WHERE Books.Status='Available'
+    SELECT BookID, Title, Author, PublicationYear, Status, ImageURL, Description
+    FROM library.Books;
 END;
-

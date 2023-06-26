@@ -1,8 +1,8 @@
-CREATE OR ALTER PROCEDURE getBookByID 
-@BookID INT 
+CREATE PROCEDURE getBookByID
+    @BookID INT
 AS
 BEGIN
-	SELECT *
-	FROM Library.Books
-	WHERE BookID=@BookID
+    SELECT BookID, Title, Author, PublicationYear, Status, ImageURL, Description
+    FROM library.Books
+    WHERE BookID = @BookID;
 END;

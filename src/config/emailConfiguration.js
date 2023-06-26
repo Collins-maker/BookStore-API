@@ -1,27 +1,15 @@
+const nodemailer = require('nodemailer');
+require('dotenv').config();
 
-require("dotenv").config();
-
-const emailConfig = {
-
-        host: 'smtp.gmail.com',
-
-        port: 587,
-
-        secure: false,
-
-        requireTLS: true,
-
-        
-
-
-        auth: {
-
-            user: process.env.USER_EMAIL,
-
-            pass: process.env.PWD
-
-       
+const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PWD
     }
-}
+});
 
-module.exports = {emailConfig};
+module.exports = transporter;

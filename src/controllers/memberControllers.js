@@ -42,44 +42,44 @@ async function getAllMembers(req, res) {
 }
 
 
-        //function to get member by their IDs
-        async function getMemberById(req, res) {
-            let { MemberID } = req.params;
+//function to get member by their IDs
+async function getMemberById(req, res) {
+    let { MemberID } = req.params;
 
 
-            try {
-                let sql = await mssql.connect(config);
-                if (sql.connected) {
-                    let results = await sql
-                        .request()
-                        .input('MemberID', mssql.Int, MemberID) // Pass the MemberID as input parameter
-                        .execute('getMemberById');
+    try {
+        let sql = await mssql.connect(config);
+        if (sql.connected) {
+            let results = await sql
+                .request()
+                .input('MemberID', mssql.Int, MemberID) // Pass the MemberID as input parameter
+                .execute('getMemberById');
 
-                    let Member = results.recordset[0];
+            let Member = results.recordset[0];
 
-                    res.json({
-                        success: true,
-                        message: 'Member fetched successfully',
-                        results: Member,
-                    });
-                }
-            } catch (error) {
-                res.status(500).json({
-                    success: false,
-                    message: 'An error occurred while fetching the member',
-                    error: error.message,
-                });
-            }
+            res.json({
+                success: true,
+                message: 'Member fetched successfully',
+                results: Member,
+            });
         }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'An error occurred while fetching the member',
+            error: error.message,
+        });
+    }
+}
 
 
 
-    
-  
 
-  async function membersWithBooks(req, res){
+
+
+async function membersWithBooks(req, res) {
     let sql = await mssql.connect(config);
-    if(sql.connected){
+    if (sql.connected) {
         let results = await sql.request().execute("membersWithBooks");
         let Members = results.recordset;
         res.json({
@@ -87,9 +87,9 @@ async function getAllMembers(req, res) {
             message: "Members fetched successfully",
             results: Members
         })
-    }else{
+    } else {
         res.status(500).send("Internal server error")
     }
-  }
+}
 
-    module.exports = { getAllMembers, getMemberById, createMember, membersWithBooks }
+module.exports = { getAllMembers, getMemberById, createMember, membersWithBooks }

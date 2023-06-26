@@ -3,14 +3,19 @@
         "bookrouter",
         "bookroutes",
         "booksore",
+        "comannds",
         "committs",
+        "geta",
         "getbooks",
         "Haron",
+        "Jambo",
+        "Kimathi",
         "memberlogin",
         "memberrouter",
         "memberroutes",
         "Millis",
         "recordset",
-        "Retreived"
+        "Retreived",
+        "succesfully"
     ]
 }

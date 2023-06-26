@@ -1,5 +1,5 @@
 const express = require('express');
-const bcrypt=require('bcrypt')
+const bcrypt = require('bcrypt')
 
 const bookrouter = express.Router();
 
@@ -11,7 +11,7 @@ const { getAllBooks, getBooksByID, makeBook, } = require('../controllers/bookCon
 
 
 bookrouter.get("/books", getAllBooks);
-bookrouter.get("/books/:BookID",validateBookID, getBooksByID);
+bookrouter.get("/books/:id", validateBookID, getBooksByID);
 bookrouter.post("/books", validateMakeBook, makeBook);
 
 

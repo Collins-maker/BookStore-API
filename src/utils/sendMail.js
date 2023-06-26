@@ -1,27 +1,12 @@
-const {createTransport}= require("nodemailer");
+const transporter = require('../config/emailConfiguration');
 
-const {emailConfig} =require('../config/emailConfiguration');
-
-
-
-
-
-const transporter = createTransport(emailConfig);
-
-async function sendMail(email,name){
-  const message_options ={
-    to:email,
-    from: process.env.USER_EMAIL ,
-    subject: "Register",
-    text: `Hi ${name}, welcome to Book Store`
-}
-  
-    try {
-        let results =await transporter.sendMail(message_options);
-        console.log(results);
-    } catch (error) {
-      console.log(error); 
-    }
+async function sendMail(message) {
+  try {
+    let result = await transporter.sendMail(message);
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 module.exports = sendMail;
