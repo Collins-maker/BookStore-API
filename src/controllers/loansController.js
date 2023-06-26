@@ -3,6 +3,7 @@ const mssql = require("mssql");
 const config = require("../config/config");
 const emailConfig = require('../config/emailConfiguration');
 const bcrypt = require("bcrypt");
+const sendMail = require("../utils/sendMail");
 const ejs = require("ejs");
 const createMarkup = require("../utils/createMarkup");
 const { request } = require("express");
@@ -74,7 +75,7 @@ async function returnBook(req, res) {
         if (result.rowsAffected[0] > 0) {
             res.status(200).json({ message: "Book returned successfully" });
 
-            const BookName = 'result.rowsAffected[0].Title'; // Replace with actual book name
+            const BookName = 'result.rowsAffected[0].Title';
 
             // Templating
             let html = await createMarkup("./src/views/return.ejs", {
@@ -82,61 +83,20 @@ async function returnBook(req, res) {
                 text: `Thank you for returning ${BookName}, a book from BookstoreAPI. We have successfully processed your return. We hope you enjoyed reading the book and found it insightful.\n\nIf you have any further questions or need assistance, please feel free to reach out to our support team.\n\nThank you,\nThe BookstoreAPI Team`,
             });
 
-            const mailOptions = {
+            const message = {
                 from: process.env.EMAIL_USER,
-                to: user.email, // Send the email to the user's email address
+                to: user.Email,
                 subject: 'Book Returned',
                 html: html,
             };
 
-            emailConfig.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.log('Error sending email:', error);
-                } else {
-                    console.log('Email sent:', info.response);
-                }
-            });
+            await sendMail(message)
         } else {
             res.status(400).json({ message: "Failed to return the book" });
         }
     } catch (error) {
         console.log("Error in returning a book:", error);
         res.status(500).json({ message: "Internal server error" });
-    }
-}
-
-//Late Return of Books Email
-async function sendDefaultedLoansEmails() {
-    try {
-        const sql = await mssql.connect(config);
-        const request = sql.request();
-        const result = await request.query(`
-            SELECT Loans.LoanID, Loans.BookID, Loans.MemberID, Members.email
-            FROM Library.Loans AS Loans
-            JOIN Library.Members AS Members ON Loans.MemberID = Members.MemberID
-            WHERE Loans.ReturnDate <= GETDATE()
-        `);
-
-        for (const row of result.recordset) {
-            const { LoanID, BookID, MemberID, email } = row;
-            const subject = 'Book Return Reminder';
-            const text = `Dear borrower,\n\nYou have defaulted on the return of Book ID ${BookID}. Please return the book as soon as possible.\n\nThank you.\nLibrary Management`;
-
-            // Send email to the defaulted borrower
-            const html = await createMarkup("./src/views/reminder.ejs", { text });
-
-            const message = {
-                to: email,
-                from: process.env.EMAIL_USER,
-                subject: subject,
-                html: html
-            };
-
-            await sendMail(message);
-        }
-
-    } catch (error) {
-        console.log('Error sending defaulted loans emails:', error);
     }
 }
 

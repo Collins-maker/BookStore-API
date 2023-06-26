@@ -57,47 +57,60 @@ async function getBooksByID(req, res) {
             if (sql.connected) {
                 const id = req.params.BookID;
 
+                console.log('BookID:', id);
+
+                // Check if the BookID parameter is provided
+                if (!id) {
+                    return res.status(400).json({
+                        success: false,
+                        message: 'BookID is required',
+                    });
+                }
+
                 let request = sql.request();
 
-                request.input("BookID", id);
+                request.input('BookID', id);
 
-                let result = await request.execute("getBookByID");
+                let result = await request.execute('getBookByID');
 
-                console.log(id);
+                console.log('Result:', result.recordset);
 
                 if (result.recordset.length > 0) {
                     res.status(200).json({
                         success: true,
-
-                        message: "The book has been retreived",
-
+                        message: 'The book has been retrieved',
                         data: result.recordset,
                     });
                 } else {
                     res.status(404).json({
                         success: false,
-
-                        message: "The book you are searching for is not present",
+                        message: 'The book you are searching for is not present',
                     });
                 }
             }
         }
     } catch (error) {
-        if (error.message.includes("token") || error.message.includes("invalid")) {
+        console.log('Error:', error);
+
+        if (error.message.includes('token') || error.message.includes('invalid')) {
             res.status(403).json({
                 success: false,
-
-                message: "The provided token is wrong",
+                message: 'The provided token is wrong',
             });
-        } else if (error.message.includes("expired")) {
+        } else if (error.message.includes('expired')) {
             res.status(403).json({
                 success: false,
-
-                message: "Your token has expired",
+                message: 'Your token has expired',
+            });
+        } else {
+            res.status(500).json({
+                success: false,
+                message: 'An error occurred',
             });
         }
     }
 }
+
 
 //Function to create a new book,makeBook,InBook
 async function makeBook(req, res) {

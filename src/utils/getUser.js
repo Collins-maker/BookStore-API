@@ -10,7 +10,7 @@ async function getaUser(email) {
     const result = await request.query(query)
 
     if (result.recordset.length === 0) {
-        return res.status(401).json({ message: 'Invalid credentials ' })
+        return res.status(401).json({ message: 'Invalid credentials' })
 
     }
 
