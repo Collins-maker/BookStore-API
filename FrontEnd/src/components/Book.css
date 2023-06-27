@@ -1,0 +1,46 @@
+.card {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-rows: repeat(4, 1fr);
+
+    gap: 10px;
+
+}
+
+.card img {
+
+    width: 100%;
+
+    height: auto;
+
+    max-height: 200px;
+
+    object-fit: cover;
+
+}
+
+.card__content {
+
+    margin-top: 10px;
+
+}
+
+.card__title {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+}
+
+.card__author,
+
+.card__year {
+
+    margin-top: 5px;
+
+}
+
