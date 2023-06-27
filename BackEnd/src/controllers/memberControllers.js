@@ -5,12 +5,15 @@ const config = require('../config/config')
 async function createMember(req, res) {
     let sql = await mssql.connect(config);
     if (sql.connected) {
-        const { userName, Address, contactNumber, } = req.body;
+        const { userName, Address, contactNumber,Email, Password, confirmPassword } = req.body;
         let request = sql
             .request()
-            .input("Name", Name)
+            .input("userName", userName)
             .input("Address", Address)
-            .input("ContactNumber", ContactNumber);
+            .input("ContactNumber", contactNumber)
+            .input("Email", Email)
+            .input("Password", Password)
+            .input("confirmPassword", confirmPassword);
         let result = await request.execute('InsertMember');
         res.json({
             success: true,

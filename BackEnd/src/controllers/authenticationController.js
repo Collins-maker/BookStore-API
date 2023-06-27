@@ -37,13 +37,13 @@ async function register(req, res) {
             if (result.rowsAffected[0] > 0) {
                 // Templating
                 let html = await createMarkup("./src/views/signup.ejs", {
-                    name: Name,
+                    name: userName,
                     text: "At our bookstore, you'll find a wide range of books in various genres, from bestsellers to classics.Feel free to explore our collection, find your next favorite book, and enjoy the reading journey.If you have any questions or need assistance, don't hesitate to reach out to our friendly staff.",
                 });
 
                 const message = {
-                    to: email,
-                    from: process.env.EMAIL_USER,
+                    to: Email,
+                    from: process.env.Email_USER,
                     subject: "Hello from Bookstore API",
                     html: html,
                 };
@@ -81,21 +81,21 @@ async function register(req, res) {
 
 // user login 
 async function login(req, res) {
-    const { email, password } = req.body
+    const { Email, Password } = req.body
     try {
-        let user = await getaUser(email)
-        const passwordMatch = await bcrypt.compare(password, user.password)
+        let user = await getaUser(Email)
+        const PasswordMatch = await bcrypt.compare(Password, user.Password)
 
-        if (!passwordMatch) {
+        if (!PasswordMatch) {
 
             return res.status(401).json({ success: false, message: 'Invalid credentials' })
 
         } else {
             let token = await tokenGenerator({
                 userId: user.id,
-                email: user.email
+                Email: user.Email
             })
-            console.log("our token", token);
+            // console.log("our token", token);
             res.json({ success: true, message: "logged in succesfully", token })
 
         }

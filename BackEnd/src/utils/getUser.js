@@ -1,12 +1,12 @@
 const config = require("../config/config");
 const mssql = require("mssql")
 
-async function getaUser(email) {
+async function getaUser(Email) {
     // new 
     const sql = await mssql.connect(config)
     const request = sql.request()
-    request.input('email', mssql.VarChar, email)
-    const query = 'SELECT * FROM library.Members WHERE email=@email'
+    request.input('Email', mssql.VarChar, Email)
+    const query = 'SELECT * FROM library.Members WHERE Email=@Email'
     const result = await request.query(query)
 
     if (result.recordset.length === 0) {
