@@ -9,7 +9,7 @@ const { getAllMembers, getMemberById, createMember, membersWithBooks } = require
 memberrouter.get('/members', getAllMembers);
 memberrouter.get('/members/:MemberID', getMemberById);
 memberrouter.get('/loans', membersWithBooks);
-memberrouter.post('/member', createMember);
+// memberrouter.post('/member', createMember);
 
 
 
